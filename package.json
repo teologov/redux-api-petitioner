@@ -2,8 +2,11 @@
   "name": "redux-api-petitioner",
   "version": "1.0.0",
   "description": "Simple redux API middleware",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
+    "build": "babel src --out-dir lib",
+    "clean": "rimraf lib",
+    "prepublish": "npm run clean && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +25,14 @@
   "bugs": {
     "url": "https://github.com/teologov/redux-api-petitioner/issues"
   },
-  "homepage": "https://github.com/teologov/redux-api-petitioner#readme"
+  "homepage": "https://github.com/teologov/redux-api-petitioner#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "rimraf": "^2.6.2"
+  },
+  "files": [
+    "README.md",
+    "LICENSE",
+    "lib/"
+  ]
 }
