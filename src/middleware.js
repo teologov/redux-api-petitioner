@@ -30,14 +30,14 @@ const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper) => sto
 
   const requestSymbol = reqMethods[requestMethod];
 
-  const { types, request } = action[requestSymbol];
+  const { actions, request } = action[requestSymbol];
   const fireAction = actionWith(action, requestSymbol);
 
-  if (!Array.isArray(types) || types.length !== 3) {
-    throw new Error('Expected an array of three action types.')
+  if (!Array.isArray(actions) || actions.length !== 3) {
+    throw new Error('Expected an array of three actions.')
   }
-  if (!types.every(type => typeof type === 'string')) {
-    throw new Error('Expected action types to be strings.')
+  if (!actions.every(type => typeof type === 'string')) {
+    throw new Error('Expected each action to be a string.')
   }
 
   // TODO: check url & data exist
@@ -52,7 +52,7 @@ const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper) => sto
     args.push(options);
   }
 
-  const [ requestType, successType, failureType ] = types;
+  const [ requestType, successType, failureType ] = actions;
 
   // dispatch starting of request
   next(fireAction({ type: requestType }))

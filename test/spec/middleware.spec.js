@@ -3,7 +3,7 @@ const { sinon, assert } = global;
 
 import apiMiddleware from '../../src/middleware';
 import reqMethods from '../../src/reqMethods';
-import generateReqTypes from '../../src/generateReqTypes';
+import generateActions from '../../src/generateActions';
 
 describe('Testing Middleware', () => {
 
