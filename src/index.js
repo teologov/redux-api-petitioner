@@ -1,4 +1,5 @@
 import reqMethods from './reqMethods';
+import reqTypesGenerator from './reqTypesGenerator';
 
 function getApiMethodSymbol(action) {
   return Object.keys(reqMethods).filter((key) => {
@@ -9,22 +10,19 @@ function getApiMethodSymbol(action) {
 }
 
 function callApi(reqMethod, methodArgs) {
-  const methodFunc = reqClient[reqMethod];
-  if (!methodFunc) {
-    throw new Error(`Request method is not found for the method type ${requestMethod}`);
-  }
-  return methodFunc.apply(null, methodArgs)
-    .then(resp => resp)
+  return reqMethod.apply(null, methodArgs)
     .catch(({response}) => Promise.reject(response));
 }
 
 const actionWith = (action, reqSymbol) => data => {
-  const finalAction = Object.assign({}, action, data);
+  const finalAction = { ...action, ...data };
   delete finalAction[reqSymbol];
   return finalAction;
 };
 
-const apiMiddleware = store => next => action => {
+const defaultResponseMapper = resp => resp;
+
+const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper) => store => next => action => {
   const requestMethod = getApiMethodSymbol(action);
 
   if (!requestMethod) {
@@ -57,17 +55,21 @@ const apiMiddleware = store => next => action => {
 
   const [ requestType, successType, failureType ] = types;
 
-  // TODO: dispatch requestType
-
-  if (requestType) {  // dispatch starting request
+  // dispatch starting OF  request
+  if (requestType) {
     next(fireAction({ type: requestType }))
   }
-  // TODO: get axios method (by the same symbol?)
-  return callApi(requestMethod.toLowerCase(), args)
-    .then(({ data }) => {
+  const methodFunc = reqClient[requestMethod.toLowerCase()];
+  if (!methodFunc) {
+    throw new Error(`Request method is not found for the method type ${requestMethod}`);
+  }
+
+  return callApi(methodFunc, args)
+    .then(responseMapper)
+    .then(data => {
       next(fireAction({ type: successType, data }));
     }, (resp = {}) => {
-      const {data, statusText, status} = resp;
+      const { data, statusText, status } = resp;
       next(fireAction({ type: failureType, error: data || statusText || 'Timeout error', status }));
   });
 };
