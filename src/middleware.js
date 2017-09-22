@@ -1,6 +1,6 @@
 import reqMethods from './reqMethods';
 
-function getApiMethodSymbol(action) {
+function getApiMethodSymbol(action = {}) {
   return Object.keys(reqMethods).filter((key) => {
     if (action[reqMethods[key]] !== undefined) {
       return {[key]: reqMethods[key]};
@@ -56,7 +56,7 @@ const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper) => sto
 
   // dispatch starting of request
   next(fireAction({ type: requestType }))
-  
+
   const methodFunc = reqClient[requestMethod.toLowerCase()];
   if (!methodFunc) {
     throw new Error(`Request method is not found for the method type ${requestMethod}`);

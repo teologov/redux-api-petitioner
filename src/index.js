@@ -1,3 +1,8 @@
 export { default } from './middleware';
-export generateReqTypes from './generateReqTypes';
-export reqMethods from './reqMethods';
+import generateReqTypes from './generateReqTypes';
+import reqMethods from './reqMethods';
+
+export {
+  generateReqTypes,
+  reqMethods
+}
