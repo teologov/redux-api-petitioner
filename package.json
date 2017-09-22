@@ -7,7 +7,7 @@
     "build": "babel src --out-dir lib",
     "clean": "rimraf lib",
     "prepublish": "npm run clean && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --require ./test/common.js --reporter spec --ui bdd --recursive --colors --timeout 5000 --slow 300"
   },
   "repository": {
     "type": "git",
@@ -27,12 +27,15 @@
   },
   "homepage": "https://github.com/teologov/redux-api-petitioner#readme",
   "devDependencies": {
-    "babel": "^6.23.0",
-    "rimraf": "^2.6.2"
+    "babel": "6.23.0",
+    "chai": "4.1.2",
+    "mocha": "3.5.3",
+    "rimraf": "2.6.2",
+    "sinon": "3.3.0"
   },
   "files": [
     "README.md",
     "LICENSE",
-    "lib/"
+    "src/"
   ]
 }
