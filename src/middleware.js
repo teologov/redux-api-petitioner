@@ -43,13 +43,15 @@ const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper, errorM
   const { url, data, options } = request;
 
   const args = [];
+
+  if (!url) {
+    throw new Error('Url should be provided');
+  }
   args.push(url);
-  if (data) {
-    args.push(data);
-  }
-  if (options) {
-    args.push(options);
-  }
+  
+  // secondary parameters
+  if (data) args.push(data);
+  if (options) args.push(options);
 
   const [ requestType, successType, failureType ] = actions;
 
