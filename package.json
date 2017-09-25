@@ -7,7 +7,8 @@
     "build": "babel src --out-dir lib",
     "clean": "rimraf lib",
     "prepublish": "npm run clean && npm run build",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha --require ./test/common.js --reporter spec --ui bdd --recursive --colors --timeout 5000 --slow 300"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha --require ./test/common.js --reporter spec --ui bdd --recursive --colors --timeout 5000 --slow 300",
+    "test:watch": "NODE_ENV=test ./node_modules/.bin/mocha --require ./test/common.js --reporter spec --ui bdd --recursive --colors --timeout 5000 --slow 300 --watch"
   },
   "repository": {
     "type": "git",
@@ -27,7 +28,10 @@
   },
   "homepage": "https://github.com/teologov/redux-api-petitioner#readme",
   "devDependencies": {
-    "babel": "6.23.0",
+    "babel-cli": "6.26.0",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.0",
+    "babel-register": "6.26.0",
     "chai": "4.1.2",
     "mocha": "3.5.3",
     "rimraf": "2.6.2",
@@ -36,6 +40,6 @@
   "files": [
     "README.md",
     "LICENSE",
-    "src/"
+    "lib/"
   ]
 }
