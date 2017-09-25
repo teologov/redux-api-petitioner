@@ -6,7 +6,7 @@ Simple client-agnostic Redux API middleware.
 
 # How it works
 
-`redux-api-petitioner` allows you create AJAX requests to your API in a declerative way. It accepts your client instance, and works with it through the redux actions. I.e. you create requests via redux actions.
+`redux-api-petitioner` allows you to create AJAX requests to your API in a declarative way. It accepts your client instance and works with it through the redux actions. I.e. you create requests via redux actions.
 
 ## Quick usage example
 
@@ -33,10 +33,10 @@ Middleware expects to receive three actions, which will be fired during the disp
 * Request success: `USERS_LIST_SUCCESS`
 * Request error: `USERS_LIST_FAILURE`
 
-It allows to handle each phase of the request in the declerative way using your reducer.
+It allows handling each phase of the request in a declarative way using your reducer.
 
 # Usage
-`redux-api-petitioner` supports any api client, which conforms to the next requirement: your api library should provide the API with each request type in the **lower case**:
+`redux-api-petitioner` supports any API client, which conforms to the next requirement: your API library should provide the API with each request type in the **lower case**:
  `HEAD, GET, POST, PUT, PATCH, DELETE`. 
  
  ***Every method should return a promise***.
@@ -81,9 +81,9 @@ export default function configureStore(initialState = {}) {
 ### apiMiddleware: (apiClient:Object, responseMapper:Function, errorMapper:Function)
 `import apiMiddleware from 'redux-api-petitioner';`
 
-**apiClient** - your api client instance
+**apiClient** - your API client instance
 
-**responseMapper** - successful request response mapper to return only response back to reducer
+**responseMapper** - successful request-response mapper to return the only data response back to the reducer
 
 **errorMapper** - bad request response mapper to provide only error back to your reducer
 
