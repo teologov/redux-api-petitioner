@@ -28,7 +28,7 @@ export const fetchUsers = () => dispatch =>
   });
 ```
 
-Middleware expects to receive three actions, which will be fired during the dispatched action handling:
+Middleware expects to receive three actions, which will be fired during the dispatched action (request) handling:
 * Before the request: `USERS_LIST_REQUEST`
 * Request success: `USERS_LIST_SUCCESS`
 * Request error: `USERS_LIST_FAILURE`
