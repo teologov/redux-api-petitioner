@@ -22,7 +22,6 @@ import reducers from './reducers';
 import myApiClient from './myApiClient';
 
 export default function configureStore(initialState = {}) {
-  // Create the store with two middlewares
   const middlewares = [
     apiMiddleware(
       apiClient,
