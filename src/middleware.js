@@ -21,7 +21,7 @@ const actionWith = (action, reqSymbol) => data => {
 
 const defaultResponseMapper = resp => resp;
 
-const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper) => store => next => action => {
+const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper, errorMapper = defaultResponseMapper) => store => next => action => {
   const requestMethod = getApiMethodSymbol(action);
 
   if (!requestMethod) {
@@ -66,9 +66,9 @@ const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper) => sto
     .then(responseMapper)
     .then(data => {
       next(fireAction({ type: successType, data }));
-    }, (resp = {}) => {
-      const { data, statusText, status } = resp;
-      next(fireAction({ type: failureType, error: data || statusText || 'Timeout error', status }));
+    }, resp => {
+      const error = errorMapper(resp);
+      next(fireAction({ type: failureType, error }));
   });
 };
 
