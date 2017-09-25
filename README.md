@@ -4,6 +4,36 @@ Simple client-agnostic Redux API middleware.
 # Installation
 `npm i -S redux-api-petitioner`
 
+# How it works
+
+`redux-api-petitioner` allows you create AJAX requests to your API in a declerative way. It accepts your client instance, and works with it through the redux actions. I.e. you create requests via redux actions.
+
+## Quick usage example
+
+```javascript
+// your action creator
+import { generateReqTypes } from 'redux-api-petitioner';
+import { USERS_LIST } from 'constants';
+
+export const fetchUsers = () => dispatch => 
+ dispatch({
+    [GET]: {
+      // this will create an array [USERS_LIST_REQUEST, USERS_LIST_SUCCESS, USERS_LIST_FAILURE] for the middleware
+      actions: generateReqTypes(USERS_LIST),
+      request: {
+        url: '/api/v1/users'
+      }
+    }
+  });
+```
+
+Middleware expects to receive three actions, which will be fired during the dispatched action handling:
+* Before the request: `USERS_LIST_REQUEST`
+* Request success: `USERS_LIST_SUCCESS`,
+* Request error: `USERS_LIST_FAILURE`
+
+It allows to handle each phase of the request in the declerative way using your reducers.
+
 # Usage
 `redux-api-petitioner` supports any api client, which conforms to the next requirement: your api library should provide the API with each request type in the **lower case**:
  `HEAD, GET, POST, PUT, PATCH, DELETE`. 
@@ -79,11 +109,5 @@ import { generateActions } from 'redux-api-petitioner';
         url: '/api/v1/users'
       }
     }
-  })
+  });
 ```
-
-
-
-
-
-
