@@ -15,6 +15,7 @@ Simple client-agnostic Redux API middleware.
 import { generateReqTypes } from 'redux-api-petitioner';
 import { USERS_LIST } from 'constants';
 
+// is meant you have enabled a redux-thunk middleware
 export const fetchUsers = () => dispatch => 
  dispatch({
     [GET]: {
@@ -29,16 +30,16 @@ export const fetchUsers = () => dispatch =>
 
 Middleware expects to receive three actions, which will be fired during the dispatched action handling:
 * Before the request: `USERS_LIST_REQUEST`
-* Request success: `USERS_LIST_SUCCESS`,
+* Request success: `USERS_LIST_SUCCESS`
 * Request error: `USERS_LIST_FAILURE`
 
-It allows to handle each phase of the request in the declerative way using your reducers.
+It allows to handle each phase of the request in the declerative way using your reducer.
 
 # Usage
 `redux-api-petitioner` supports any api client, which conforms to the next requirement: your api library should provide the API with each request type in the **lower case**:
  `HEAD, GET, POST, PUT, PATCH, DELETE`. 
  
- ***Every method should return the promise***.
+ ***Every method should return a promise***.
  
  For instance, [Axios](https://github.com/mzabriskie/axios) suits perfectly for it.
  ## Connection to the redux store
