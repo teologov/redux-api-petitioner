@@ -56,4 +56,34 @@ export default function configureStore(initialState = {}) {
 
 **errorMapper** - bad request response mapper to provide only error back to your reducer
 
+### reqMethods>Object
+```javascript
+import { reqMethods } from 'redux-api-petitioner';
+
+const { HEAD, GET, POST, PUT, PATCH, DELETE } = reqMethods;
+```
+exports ES6 symbols for each request type: `HEAD, GET, POST, PUT, PATCH, DELETE`.
+
+### generateActions: (actionType:String)
+
+This helper function generates an array of three actions, required for the middleware. 
+```javascript
+import { generateActions } from 'redux-api-petitioner';
+
+// In your action creator
+ dispatch({
+    [GET]: {
+      // this will produce an array [USERS_LIST_REQUEST, USERS_LIST_SUCCESS, USERS_LIST_FAILURE] for the middleware
+      actions: generateReqTypes(USERS_LIST),
+      request: {
+        url: '/api/v1/users'
+      }
+    }
+  })
+```
+
+
+
+
+
 
