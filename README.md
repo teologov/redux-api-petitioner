@@ -48,7 +48,7 @@ export default function configureStore(initialState = {}) {
 # API
 
 
-#### apiMiddleware: (apiClient:Object, responseMapper:Function, errorMapper:Function)
+### apiMiddleware: (apiClient:Object, responseMapper:Function, errorMapper:Function)
 **apiClient** - your api client instance
 
 **responseMapper** - successful request response mapper to return only response back to reducer
