@@ -49,9 +49,12 @@ export default function configureStore(initialState = {}) {
 
 
 ### apiMiddleware: (apiClient:Object, responseMapper:Function, errorMapper:Function)
+`import apiMiddleware from 'redux-api-petitioner';`
+
 **apiClient** - your api client instance
 
 **responseMapper** - successful request response mapper to return only response back to reducer
 
 **errorMapper** - bad request response mapper to provide only error back to your reducer
+
 
