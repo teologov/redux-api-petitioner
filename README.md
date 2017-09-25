@@ -5,8 +5,10 @@ Simple client agnostic Redux API middleware.
 `npm i -S redux-api-petitioner`
 
 # Usage
-`redux-api-petitioner` supports any client. The only requirement is to provide the API nma each request type in the **lower case**:
- `HEAD, GET, POST, PUT, PATCH, DELETE`. Every method should return the promise.
+`redux-api-petitioner` supports any api client, which conforms to the next requirement: your api library should provide the API with each request type in the **lower case**:
+ `HEAD, GET, POST, PUT, PATCH, DELETE`. 
+ 
+ ***Every method should return the promise***.
  
  For instance, [Axios](https://github.com/mzabriskie/axios) suits perfectly for it.
  ## Connection to the redux store
