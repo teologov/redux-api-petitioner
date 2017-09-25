@@ -40,7 +40,6 @@ const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper, errorM
     throw new Error('Expected each action to be a string.')
   }
 
-  // TODO: check url & data exist
   const { url, data, options } = request;
 
   const args = [];
