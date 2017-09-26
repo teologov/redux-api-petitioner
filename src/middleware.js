@@ -66,10 +66,10 @@ const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper, errorM
   return callApi(methodFunc, args)
     .then(responseMapper)
     .then(data => {
-      next(fireAction({ type: successType, data }));
+      return responseMapper(next(fireAction({ type: successType, data })));
     }, resp => {
       const error = errorMapper(resp);
-      next(fireAction({ type: failureType, error }));
+      return errorMapper(next(fireAction({ type: failureType, error })));
   });
 };
 
