@@ -20,6 +20,13 @@ const actionWith = (action, reqSymbol) => data => {
 };
 
 const defaultResponseMapper = resp => resp;
+const getRequestTypeAction = (reqType, options) => {
+  const action = { type: reqType };
+  if (options) {
+    action.options = options;
+  }
+  return action;
+}
 
 const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper, errorMapper = defaultResponseMapper) => store => next => action => {
   const requestMethod = getApiMethodSymbol(action);
@@ -56,7 +63,8 @@ const apiMiddleware = (reqClient, responseMapper = defaultResponseMapper, errorM
   const [ requestType, successType, failureType ] = actions;
 
   // dispatch starting of request
-  next(fireAction({ type: requestType }))
+  // allow to pass options
+  next(fireAction(getRequestTypeAction(requestType, options)));
 
   const methodFunc = reqClient[requestMethod.toLowerCase()];
   if (!methodFunc) {
